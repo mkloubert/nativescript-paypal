@@ -158,6 +158,9 @@ function init(cfg) {
             }
         }
         catch (e) {
+            resultCtx.code = -2;
+            resultCtx.message = e;
+            
             logMsg('onActivityResult >> ERROR: ' + e);
         }
         
@@ -181,6 +184,15 @@ function newPayment() {
     };
     newPayment.setType = function(newType) {
         type = newType;
+    };
+    
+    // sub type
+    var subType;
+    newPayment.getSubtype = function() {
+        return subType;    
+    };
+    newPayment.setSubtype = function(newSubType) {
+        subType = newSubType;
     };
     
     // subtotal
@@ -210,10 +222,73 @@ function newPayment() {
         recipient = newRecipient;
     };
     
+    // custom ID
+    var customId;
+    newPayment.getCustomId = function() {
+        return customId;
+    };
+    newPayment.setCustomId = function(newCustomId) {
+        customId = newCustomId;
+    };
+    
+    // memo
+    var memo;
+    newPayment.getMemo = function() {
+        return memo;
+    };
+    newPayment.setMemo = function(newMemo) {
+        memo = newMemo;
+    };
+    
+    // tax
+    var tax;
+    newPayment.getTax = function() {
+        return tax;
+    };
+    newPayment.setTax = function(newTax) {
+        tax = newTax;
+    };
+    
+    // shipping
+    var shipping;
+    newPayment.getShipping = function() {
+        return shipping;
+    };
+    newPayment.setShipping = function(newShipping) {
+        shipping = newShipping;    
+    };
+    
+    // merchant name
+    var merchantName;
+    newPayment.getMerchantName = function() {
+        return merchantName;
+    };
+    newPayment.setMerchantName = function(newMerchantName) {
+        merchantName = newMerchantName;    
+    };
+    
+    // IPN URL
+    var ipnUrl;
+    newPayment.getIpnUrl = function() {
+        return ipnUrl;
+    };
+    newPayment.setIpnUrl = function(newIpnUrl) {
+        ipnUrl = newIpnUrl;    
+    };
+    
     // start()
     newPayment.start = function(cb) {
         try {
             cbCheckout = cb;
+            
+            var invoice;
+            var createInvoiceIfNeeded = function() {
+                if (!invoice) {
+                    invoice =  new com.paypal.android.MEP.PayPalInvoiceData();
+                }
+                
+                return invoice;
+            };
             
             logMsg('newPayment >> Starting payment...');
             
@@ -230,6 +305,50 @@ function newPayment() {
             
             logMsg('newPayment >> recipient: ' +  recipient);
             ppPayment.setRecipient(recipient);
+        
+            if (customId) {
+                logMsg('newPayment >> customId: ' +  customId);
+                ppPayment.setCustomID(customId);
+            }
+            
+            if (memo) {
+                logMsg('newPayment >> memo: ' +  memo);
+                ppPayment.setMemo(memo);
+            }
+            
+            if (subType) {
+                logMsg('newPayment >> subtype: ' +  subType);
+                ppPayment.setPaymentSubtype(subType);
+            }
+
+            if (tax) {
+                invoice = createInvoiceIfNeeded();
+                
+                logMsg('newPayment >> tax: ' +  tax);
+                invoice.setTax(new java.math.BigDecimal(tax));
+            }
+            
+            if (shipping) {
+                invoice = createInvoiceIfNeeded();
+                
+                logMsg('newPayment >> shipping: ' +  shipping);
+                invoice.setShipping(new java.math.BigDecimal(shipping));
+            }
+
+            if (merchantName) {
+                logMsg('newPayment >> merchantname: ' +  merchantName);
+                ppPayment.setMerchantName(merchantName);
+            }
+            
+            if (ipnUrl) {
+                logMsg('newPayment >> ipnurl: ' +  ipnUrl);
+                ppPayment.setIpnUrl(ipnUrl);
+            }
+            
+            if (invoice) {
+                logMsg('newPayment >> setting invoice data...');
+                ppPayment.setInvoiceData(invoice);
+            }
         
             logMsg('newPayment >> Starting checkout...');
             var ppPaymentIntent = paypal.checkout(ppPayment, androidAppCtx);
