@@ -1,3 +1,6 @@
+[![npm](https://img.shields.io/npm/v/nativescript-paypal.svg)](https://www.npmjs.com/package/nativescript-paypal)
+[![npm](https://img.shields.io/npm/dt/nativescript-paypal.svg?label=npm%20downloads)](https://www.npmjs.com/package/nativescript-paypal)
+
 # NativeScript PayPal
 
 [NativeScript](https://www.nativescript.org/) module for implementing simple PayPal checkouts using official  [MPL](https://developer.paypal.com/docs/classic/mobile/gs_MPL/).
