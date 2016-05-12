@@ -40,19 +40,35 @@ Initialize the environment:
 
 ```javascript
 function onPageLoaded(args) {
-    PayPal.init();
+    PayPal.init({
+        appId: '<YOUR-APP-ID>'
+    });
 }
 exports.onPageLoaded = onPageLoaded;
 ```
+
+The (optional) object that is submitted to the `PayPal.init` function has the following structure:
+
+#### Properties
+
+| Name  | Description  |
+| ----- | ----------- |
+| appId  | [OPTIONAL] The PayPal ID for your app that was generated in the [PayPal Developer Console](https://developer.paypal.com/developer/applications/). If not defined, the environment is set upped for the SandBox and uses `APP-80W284485P519543T` as value.  |
+| defaultCurrency  | [OPTIONAL] The default currency to use. Default: `USD`  |
+| feesPayer  | [OPTIONAL] The payer for the fees. Possible values are: 0 = FEEPAYER_EACHRECEIVER, 1 = FEEPAYER_SENDER, 2 = FEEPAYER_PRIMARYRECEIVER, 3 = FEEPAYER_SECONDARYONLY.  Default: `0`  |
+| isShippingEnabled  | [OPTIONAL] Enable shipping or not. Default: `(false)`  |
 
 ### Start a payment
 
 ```javascript
 function buyProduct(args) {
-    var payment = PayPal.newPayment();
+    var payment = PayPal.newPayment({
+        
+    });
     
     // the price (without taxes)
     payment.setSubtotal(59.79);
+    
     // the email address of
     // the recipient's PayPal account
     payment.setRecipient('paypal@example.com');
