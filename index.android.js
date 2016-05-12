@@ -106,6 +106,10 @@ function init(cfg) {
             pp.setAccountPhone(cfg.account.phone);
         }
         
+        if (cfg.account.countryDialingCode) {
+            pp.setAccountCountryDialingCode(cfg.account.countryDialingCode);
+        }
+        
         if (cfg.account.email) {
             pp.setAccountEmail(cfg.account.email);
         }
