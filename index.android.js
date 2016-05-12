@@ -101,6 +101,20 @@ function init(cfg) {
     pp.setLanguage(language);
     pp.setFeesPayer(feesPayer);
     
+    if (cfg.account) {
+        if (cfg.account.phone) {
+            pp.setAccountPhone(cfg.account.phone);
+        }
+        
+        if (cfg.account.email) {
+            pp.setAccountEmail(cfg.account.email);
+        }
+        
+        if (cfg.account.name) {
+            pp.setAccountName(cfg.account.name);
+        }
+    }
+    
     activity.onActivityResult = function(requestCode, resultCode, intent) {
         var resultCtx = {};
         var cb = cbCheckout;
