@@ -1,6 +1,6 @@
 {
   "name": "nativescript-paypal",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "nativescript": {
     "platforms": {
       "ios": "1.0.0",
