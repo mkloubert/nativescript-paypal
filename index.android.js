@@ -94,25 +94,38 @@ function init(cfg) {
         rcCheckout = cfg.requestCode;
     }
 
+    logMsg('init >> env: ' + env);
+    logMsg('init >> requestCode: ' + rcCheckout);
+    
     var pp = com.paypal.android.MEP.PayPal.initWithAppID(androidAppCtx, appId, env);
-    pp.setShippingEnabled(isShippingEnabled ? true : false);                                               
+    
+    logMsg('init >> isShippingEnabled: ' + isShippingEnabled);
+    pp.setShippingEnabled(isShippingEnabled ? true : false);
+
+    logMsg('init >> language: ' + language);    
     pp.setLanguage(language);
+    
+    logMsg('init >> feesPayer: ' + feesPayer);    
     pp.setFeesPayer(feesPayer);
     
     if (cfg.account) {
         if (cfg.account.phone) {
+            logMsg('init >> account >> phone: ' + cfg.account.phone);
             pp.setAccountPhone(cfg.account.phone);
         }
         
         if (cfg.account.countryDialingCode) {
+            logMsg('init >> account >> countryDialingCode: ' + cfg.account.countryDialingCode);
             pp.setAccountCountryDialingCode(cfg.account.countryDialingCode);
         }
         
         if (cfg.account.email) {
+            logMsg('init >> account >> email: ' + cfg.account.email);
             pp.setAccountEmail(cfg.account.email);
         }
         
         if (cfg.account.name) {
+            logMsg('init >> account >> name: ' + cfg.account.name);
             pp.setAccountName(cfg.account.name);
         }
     }
