@@ -137,7 +137,7 @@ The `payment` object that is created by `PayPal.newPayment` function has the fol
 
 ###### start
 
-The callback that is submitted to the `payment.start` method has the following properties:
+The callback that is submitted to the `payment.start` method receives an object with the following properties:
 
 | Name  | Description  |
 | ----- | ----------- |
