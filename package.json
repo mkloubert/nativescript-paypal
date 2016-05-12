@@ -1,10 +1,31 @@
 {
   "name": "nativescript-paypal",
+  "description": "A NativeScript module providing access to PayPal MPL.",
   "version": "1.0.0",
   "nativescript": {
     "platforms": {
       "ios": "1.0.0",
       "android": "1.1.0"
     }
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mkloubert/nativescript-paypal"
+  },
+  "keywords": [
+    "NativeScript", "PayPal", "MPL"
+  ],
+  "author": {
+    "name": "Marcel Joachim Kloubert",
+    "email": "marcel.kloubert@gmx.net"
+  },
+  "license": {
+    "type": "",
+    "url": "https://github.com/mkloubert/nativescript-paypal/blob/master/LICENSE"
+  },
+  "bugs": {
+    "url": "https://github.com/mkloubert/nativescript-paypal/issues"
+  },
+  "homepage": "https://github.com/mkloubert/nativescript-paypal",
+  "readmeFilename": "README.md"
 }
