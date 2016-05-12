@@ -141,12 +141,20 @@ The `payment` object that is created by `PayPal.newPayment` function has the fol
 | Name  | Description  |
 | ----- | ----------- |
 | getCurrency | Gets the custom currency to use. Example: `var c = payment.getCurrency();` |
-| getRecipient | Gets the recipient (email of the PayPal account, e.g.) of the payment. Example: `var c = payment.getRecipient();` |
-| getSubtotal | Gets the prices without taxes. Example: `var c = payment.getSubtotal();` |
-| getType | Gets the payment type. `var c = payment.getType();` |
+| getCustomId | Gets the custom ID for the payment. Example: `var cId = payment.getCustomId();` |
+| getMemo | Gets the memo. Example: `var m = payment.getMemo();` |
+| getRecipient | Gets the recipient (email of the PayPal account, e.g.) of the payment. Example: `var r = payment.getRecipient();` |
+| getSubtotal | Gets the prices without taxes. Example: `var st = payment.getSubtotal();` |
+| getSubtype | Gets the payment sub type. `var st = payment.getSubtype();` |
+| getTax | Gets the tax rate. Example: `var t = payment.getTax();` |
+| getType | Gets the payment type. `var t = payment.getType();` |
 | setCurrency | Sets the custom currency to use. Example: `payment.setCurrency('EUR');` |
+| setCustomId | Sets the custom ID for the payment. Example: `payment.setCustomId('my-product-id');` |
+| setMemo | Sets the memo. Example: `payment.setMemo('This is a memo about the payment.');` |
 | setRecipient | Sets the recipient (email of the PayPal account, e.g.) of the payment. Example: `payment.setRecipient('paypal@example.com');` |
 | setSubtotal | Sets the prices without taxes. Example: `payment.setSubtotal(1.25);` |
+| setSubtype | Sets the payment sub type. Possible values are: `0` = `PAYMENT_SUBTYPE_AFFILIATE`, `1` = `PAYMENT_SUBTYPE_B2B`, `2` = `PAYMENT_SUBTYPE_PAYROLL`, `3` = `PAYMENT_SUBTYPE_REBATES`, `4` = `PAYMENT_SUBTYPE_REFUNDS`, `5` = `PAYMENT_SUBTYPE_REIMBUSEMENTS`, `5` = `PAYMENT_SUBTYPE_REIMBURSEMENTS`, `6` = `PAYMENT_SUBTYPE_DONATIONS` `7` = `PAYMENT_SUBTYPE_UTILITIES`, `8` = `PAYMENT_SUBTYPE_TUITION`, `9` = `PAYMENT_SUBTYPE_GOVERNMENT`, `10` = `PAYMENT_SUBTYPE_INSURANCE`, `11` = `PAYMENT_SUBTYPE_REMITTANCES`, `12` = `PAYMENT_SUBTYPE_RENT`, `13` = `PAYMENT_SUBTYPE_MORTGAGE`, `14` = `PAYMENT_SUBTYPE_MEDICAL`, `15` = `PAYMENT_SUBTYPE_CHILDCARE`, `16` = `PAYMENT_SUBTYPE_EVENTS`, `17` = `PAYMENT_SUBTYPE_CONTRACTORS`, `18` = `PAYMENT_SUBTYPE_ENTERTAINMENT`, `19` = `PAYMENT_SUBTYPE_TOURISM`, `20` = `PAYMENT_SUBTYPE_INVOICE`, `21` = `PAYMENT_SUBTYPE_TRANSFER`, `22` = `PAYMENT_SUBTYPE_NONE`  |
+| setTax | Sets the tax rate. Example: `payment.setTax('2.20');` |
 | setType | Sets the payment type. Possible values are: `0` = `PAYMENT_TYPE_GOODS`, `1` = `PAYMENT_TYPE_SERVICE`, `2` = `PAYMENT_TYPE_PERSONAL`, `3` = `PAYMENT_TYPE_NONE`  |
 | start | Starts the payment by defining a callback that is invoked after operation has been done.  |
 
