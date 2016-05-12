@@ -53,7 +53,7 @@ function init(cfg) {
         cfg = {};
     }
     
-    var env = com.paypal.android.MEP.PayPal.ENV_NONE;
+    var env;
     var appId;
     if (cfg.appId) {
         appId = cfg.appId;
@@ -61,6 +61,14 @@ function init(cfg) {
     else {
         appId = 'APP-80W284485P519543T';
         env = com.paypal.android.MEP.PayPal.ENV_SANDBOX;
+    }
+
+    if (!env) {
+        env = com.paypal.android.MEP.PayPal.ENV_LIVE;
+        
+        if (cfg.environment) {
+            env = cfg.environment;
+        }
     }
     
     defaultCurrency = 'USD';

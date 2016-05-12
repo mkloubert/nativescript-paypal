@@ -77,6 +77,7 @@ The (optional) object that is submitted to the `PayPal.init` function has the fo
 | ----- | ----------- |
 | appId  | The PayPal ID for your app that was generated in the [PayPal Developer Console](https://developer.paypal.com/developer/applications/). If not defined, the environment is set upped for the SandBox and uses `APP-80W284485P519543T` as value.  |
 | defaultCurrency  | [OPTIONAL] The default currency to use. Default: `USD`  |
+| environment  | [OPTIONAL] The environment to use. Possible values are: `0` = `ENV_LIVE`, `1` = `ENV_LIVE`, `2` = `ENV_NONE`. Default is `0` if `appId` is defined.  |
 | feesPayer  | [OPTIONAL] The payer for the fees. Possible values are: `0` = `FEEPAYER_EACHRECEIVER`, `1` = `FEEPAYER_SENDER`, `2` = `FEEPAYER_PRIMARYRECEIVER`, `3` = `FEEPAYER_SECONDARYONLY`.  Default: `0`  |
 | isShippingEnabled  | [OPTIONAL] Enable shipping or not. Default: `(false)`  |
 | onActivityResult  | [OPTIONAL] Logic for [Activity.onActivityResult](http://developer.android.com/reference/android/app/Activity.html#onActivityResult%28int,%20int,%20android.content.Intent%29) method of the underlying Android activity that is used to invoke logic for other modules, e.g. |
