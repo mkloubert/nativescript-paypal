@@ -57,20 +57,18 @@ function init(cfg) {
     var appId;
     if (cfg.appId) {
         appId = cfg.appId;
-    }
-    else {
-        appId = 'APP-80W284485P519543T';
-        env = com.paypal.android.MEP.PayPal.ENV_SANDBOX;
-    }
-
-    if (!env) {
-        env = com.paypal.android.MEP.PayPal.ENV_LIVE;
         
+        env = com.paypal.android.MEP.PayPal.ENV_LIVE;
         if (cfg.environment) {
             env = cfg.environment;
         }
     }
-    
+    else {
+        appId = 'APP-80W284485P519543T';
+        
+        env = com.paypal.android.MEP.PayPal.ENV_SANDBOX;
+    }
+
     defaultCurrency = 'USD';
     if (cfg.defaultCurrency) {
         defaultCurrency = cfg.defaultCurrency;
