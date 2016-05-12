@@ -65,7 +65,7 @@ The (optional) object that is submitted to the `PayPal.init` function has the fo
 | defaultCurrency  | [OPTIONAL] The default currency to use. Default: `USD`  |
 | feesPayer  | [OPTIONAL] The payer for the fees. Possible values are: `0` = `FEEPAYER_EACHRECEIVER`, `1` = `FEEPAYER_SENDER`, `2` = `FEEPAYER_PRIMARYRECEIVER`, `3` = `FEEPAYER_SECONDARYONLY`.  Default: `0`  |
 | isShippingEnabled  | [OPTIONAL] Enable shipping or not. Default: `(false)`  |
-| onActivityResult  | [OPTIONAL] Alternative logic for [Activity.onActivityResult](http://developer.android.com/reference/android/app/Activity.html#onActivityResult%28int,%20int,%20android.content.Intent%29) method of the underlying Android activity. |
+| onActivityResult  | [OPTIONAL] Logic for [Activity.onActivityResult](http://developer.android.com/reference/android/app/Activity.html#onActivityResult%28int,%20int,%20android.content.Intent%29) method of the underlying Android activity that is used to invoke logic for other modules, e.g. |
 | requestCode  | [OPTIONAL] The custom request code to use (e.g. for [Activity.onActivityResult](http://developer.android.com/reference/android/app/Activity.html#onActivityResult%28int,%20int,%20android.content.Intent%29) Android method). Default: `230958624`  |
 
 ### Start a payment
