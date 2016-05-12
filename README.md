@@ -116,7 +116,7 @@ function buyProduct(args) {
         }
     });
 }
-exports.onPageLoaded = onPageLoaded;
+exports.buyProduct = buyProduct;
 ```
 
 The `payment` object that is created by `PayPal.newPayment` function has the following structure.
