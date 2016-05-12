@@ -75,6 +75,7 @@ The (optional) object that is submitted to the `PayPal.init` function has the fo
 
 | Name  | Description  |
 | ----- | ----------- |
+| account | [OPTIONAL] Defines information about the account. |
 | appId  | The PayPal ID for your app that was generated in the [PayPal Developer Console](https://developer.paypal.com/developer/applications/). If not defined, the environment is set upped for the SandBox and uses `APP-80W284485P519543T` as value.  |
 | defaultCurrency  | [OPTIONAL] The default currency to use. Default: `USD`  |
 | environment  | [OPTIONAL] The environment to use. Possible values are: `0` = `ENV_SANDBOX`, `1` = `ENV_LIVE`, `2` = `ENV_NONE`. Default is `0` if `appId` is defined.  |
@@ -82,6 +83,19 @@ The (optional) object that is submitted to the `PayPal.init` function has the fo
 | isShippingEnabled  | [OPTIONAL] Enable shipping or not. Default: `(false)`  |
 | onActivityResult  | [OPTIONAL] Logic for [Activity.onActivityResult](http://developer.android.com/reference/android/app/Activity.html#onActivityResult%28int,%20int,%20android.content.Intent%29) method of the underlying Android activity that is used to invoke logic for other modules, e.g. |
 | requestCode  | [OPTIONAL] The custom request code to use (e.g. for [Activity.onActivityResult](http://developer.android.com/reference/android/app/Activity.html#onActivityResult%28int,%20int,%20android.content.Intent%29) Android method). Default: `230958624`  |
+
+##### account
+
+The `account` object has the following structure:
+
+###### Properties
+
+| Name  | Description  |
+| ----- | ----------- |
+| countryDialingCode | [OPTIONAL] The country dialing code for the (contact) phone number of the account. |
+| email | [OPTIONAL] The (contact) email of the account. |
+| name | [OPTIONAL] The name of the account. |
+| phone | [OPTIONAL] The (contact) phone number of the account. |
 
 ### Start a payment
 
