@@ -2,6 +2,8 @@
 
 NativeScript module for using [MPL by PayPal](https://developer.paypal.com/docs/classic/mobile/gs_MPL/).
 
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=R3YXF4NEV9AAL)
+
 ## Platforms
 
 * Android
