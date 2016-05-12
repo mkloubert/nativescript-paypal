@@ -128,6 +128,12 @@ function buyProduct(args) {
                 // and 'cbResult.message'
                 // to get more information
                 break;
+                
+            case -2:
+                // "unhandled exception"
+                // and 'cbResult.message'
+                // to get more information
+                break;
         }
     });
 }
@@ -173,7 +179,7 @@ The callback that is submitted to the `payment.start` method receives an object 
 | code | The result code. `0` = success, `1` = cancelled, `-1` = error |
 | id | The error ID (if `code` = `-1`) |
 | key | The pay key returned by PayPal after successful transaction (if `code` = `0`) |
-| message | The error message (if `code` = `-1`) |
+| message | The error message (if `code` = `-1` or `-2`) |
 
 ## Enhancements
 
@@ -186,4 +192,3 @@ PayPal.addLogger(function(msg) {
     console.log('[nativescript-paypal]: ' + msg);
 });
 ```
-
