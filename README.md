@@ -4,6 +4,10 @@ NativeScript module for using [MPL by PayPal](https://developer.paypal.com/docs/
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=R3YXF4NEV9AAL)
 
+## License
+
+[MIT license](https://raw.githubusercontent.com/mkloubert/nativescript-paypal/master/LICENSE)
+
 ## Platforms
 
 * Android
