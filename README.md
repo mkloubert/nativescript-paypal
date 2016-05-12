@@ -153,7 +153,7 @@ The `payment` object that is created by `PayPal.newPayment` function has the fol
 | getType | Gets the payment type. `var t = payment.getType();` |
 | setCurrency | Sets the custom currency to use. Example: `payment.setCurrency('EUR');` |
 | setCustomId | Sets the custom ID for the payment. Example: `payment.setCustomId('my-product-id');` |
-| setIpnUrl | Sets the IPN url to call by PayPal after a checkout (s. Instant Payment Notification](https://developer.paypal.com/webapps/developer/docs/classic/products/instant-payment-notification/)). Example: `payment.getIpnUrl('https://example.com/ipn');` |
+| setIpnUrl | Sets the IPN url to call by PayPal after a checkout (s. [Instant Payment Notification](https://developer.paypal.com/webapps/developer/docs/classic/products/instant-payment-notification/)). Example: `payment.getIpnUrl('https://example.com/ipn');` |
 | setMemo | Sets the memo. Example: `payment.setMemo('This is a memo about the payment.');` |
 | setMerchantName | Sets the name of the merchant. Example: `payment.setMerchantName('My store');` |
 | setRecipient | Sets the recipient (email of the PayPal account, e.g.) of the payment. Example: `payment.setRecipient('paypal@example.com');` |
