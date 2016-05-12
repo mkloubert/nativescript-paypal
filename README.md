@@ -2,9 +2,17 @@
 
 NativeScript module for using [MPL by PayPal](https://developer.paypal.com/docs/classic/mobile/gs_MPL/).
 
+## Platforms
+
+* Android
+
+## Roadmap
+
+* [add support for iOS](https://github.com/mkloubert/nativescript-paypal/issues/1)
+
 ## Installation
 
-Run `tns plugin add nativescript-paypal` inside your app project that install the module.
+Run `tns plugin add nativescript-paypal` inside your app project to install the module.
 
 ### Android
 
