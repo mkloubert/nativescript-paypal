@@ -146,3 +146,16 @@ The callback that is submitted to the `payment.start` method receives an object 
 | id | The error ID (if `code` = `-1`) |
 | key | The pay key returned by PayPal after successful transaction (if `code` = `0`) |
 | message | The error message (if `code` = `-1`) |
+
+## Enhancements
+
+### Logging
+
+If you want to get the logging output of the module, you can use `PayPal.addLogger` function to add a callback that receives a message from the module:
+
+```javascript
+PayPal.addLogger(function(msg) {
+    console.log('[nativescript-paypal]: ' + msg);
+});
+```
+
