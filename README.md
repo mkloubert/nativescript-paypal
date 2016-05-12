@@ -103,11 +103,24 @@ The `payment` object that is created by `PayPal.newPayment` function has the fol
 
 | Name  | Description  |
 | ----- | ----------- |
-| getCurrency | Gets the custom currency to use. |
-| getRecipient | Gets the recipient (email of the PayPal account, e.g.) of the payment. |
-| getSubtotal | Gets the prices without taxes. |
-| getType | Gets the payment type. Default: `0` |
+| getCurrency | Gets the custom currency to use. Example: `var c = payment.getCurrency();` |
+| getRecipient | Gets the recipient (email of the PayPal account, e.g.) of the payment. Example: `var c = payment.getRecipient();` |
+| getSubtotal | Gets the prices without taxes. Example: `var c = payment.getSubtotal();` |
+| getType | Gets the payment type. `var c = payment.getType();` |
 | setCurrency | Sets the custom currency to use. Example: `payment.setCurrency('EUR');` |
 | setRecipient | Sets the recipient (email of the PayPal account, e.g.) of the payment. Example: `payment.setRecipient('paypal@example.com');` |
 | setSubtotal | Sets the prices without taxes. Example: `payment.setSubtotal(1.25);` |
 | setType | Sets the payment type. Possible values are: `0` = `PAYMENT_TYPE_GOODS`, `1` = `PAYMENT_TYPE_SERVICE`, `2` = `PAYMENT_TYPE_PERSONAL`, `3` = `PAYMENT_TYPE_NONE`  |
+| start | Starts the payment by defining a callback that is invoked after operation has been done.  |
+
+###### start
+
+The callback that is submitted to the `payment.start` method has the following properties:
+
+| Name  | Description  |
+| ----- | ----------- |
+| code | The result code. `0` = success, `1` = cancelled, `-1` = error |
+| id | The error ID (if `code` = `1`) |
+| key | The pay key returned by PayPal after successful transaction (if `code` = `0`) |
+| message | The error message (if `code` = `1`) |
+
