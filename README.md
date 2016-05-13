@@ -21,7 +21,13 @@
 
 ## Installation
 
-Run `tns plugin add nativescript-paypal` inside your app project to install the module.
+Run
+
+```bash
+tns plugin add nativescript-paypal
+```
+
+inside your app project to install the module.
 
 ### Android
 
