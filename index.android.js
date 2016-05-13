@@ -93,6 +93,16 @@ function init(cfg) {
     if (cfg.requestCode) {
         rcCheckout = cfg.requestCode;
     }
+    
+    var acceptCreditCards = true;
+    if (cfg.acceptCreditCards !== undefined) {
+        acceptCreditCards = cfg.acceptCreditCards;
+    }
+    
+    var rememberUser = true;
+    if (cfg.rememberUser !== undefined) {
+        rememberUser = cfg.rememberUser;
+    }
 
     logMsg('init >> requestCode: ' + rcCheckout);
     
@@ -105,7 +115,13 @@ function init(cfg) {
 
     logMsg('init >> language: ' + language);    
     pp.languageOrLocale(language);
-
+    
+    logMsg('init >> rememberUser: ' + rememberUser);
+    pp.rememberUser(rememberUser ? true : false);
+    
+    logMsg('init >> acceptCreditCards: ' + acceptCreditCards);
+    pp.acceptCreditCards(acceptCreditCards ? true : false);
+    
     if (cfg.account) {
         if (cfg.account.name) {
             logMsg('init >> account >> name: ' + cfg.account.name);
