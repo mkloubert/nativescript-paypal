@@ -3,7 +3,7 @@
 
 # NativeScript PayPal
 
-[NativeScript](https://www.nativescript.org/) module for implementing simple PayPal checkouts using official  [MPL](https://developer.paypal.com/docs/classic/mobile/gs_MPL/).
+[NativeScript](https://www.nativescript.org/) module for implementing simple PayPal checkouts using official  [SDK](https://developer.paypal.com/docs/integration/mobile/mobile-sdk-overview/).
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=R3YXF4NEV9AAL)
 
