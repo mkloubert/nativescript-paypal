@@ -15,7 +15,6 @@ var androidAppCtx = androidApp.context;
 
 var activity;
 var cbCheckout;
-var defaultCurrency;
 var language;
 var loggers = [];
 var payPal;
@@ -53,84 +52,67 @@ function init(cfg) {
         cfg = {};
     }
     
+    var customEnv;
+    switch (cfg.environment) {
+        case 0:
+            customEnv = com.paypal.android.sdk.payments.PayPalConfiguration.ENVIRONMENT_SANDBOX;
+            break;
+            
+        case 1:
+            customEnv = com.paypal.android.sdk.payments.PayPalConfiguration.ENVIRONMENT_PRODUCTION;
+            break;
+            
+        case 2:
+            customEnv = com.paypal.android.sdk.payments.PayPalConfiguration.ENVIRONMENT_NO_NETWORK;
+            break;
+    }
+    
     var env;
-    var appId;
-    if (cfg.appId) {
-        appId = cfg.appId;
+    var clientId;
+    if (cfg.clientId) {
+        clientId = cfg.clientId;
         
-        env = com.paypal.android.MEP.PayPal.ENV_LIVE;
+        env = com.paypal.android.sdk.payments.PayPalConfiguration.ENVIRONMENT_PRODUCTION;
     }
     else {
-        appId = 'APP-80W284485P519543T';
+        clientId = 'APP-80W284485P519543T';
         
-        env = com.paypal.android.MEP.PayPal.ENV_SANDBOX;
+        env = com.paypal.android.sdk.payments.PayPalConfiguration.ENVIRONMENT_SANDBOX;
     }
     
-    if (cfg.environment) {
-        env = cfg.environment;
+    if (customEnv) {
+        env = customEnv;
     }
 
-    defaultCurrency = 'USD';
-    if (cfg.defaultCurrency) {
-        defaultCurrency = cfg.defaultCurrency;
-    }
-    
     language = 'en_US';
     if (cfg.lang) {
         language = cfg.lang;
     }
-    
-    var isShippingEnabled;
-    if (cfg.enabledShipping) {
-        isShippingEnabled = cfg.enabledShipping;
-    }
-    
-    var feesPayer = 0;
-    if (cfg.feesPayer) {
-        feesPayer = cfg.feesPayer;
-    }
-    
+
     rcCheckout = 230958624;
     if (cfg.requestCode) {
         rcCheckout = cfg.requestCode;
     }
 
-    logMsg('init >> env: ' + env);
     logMsg('init >> requestCode: ' + rcCheckout);
     
-    var pp = com.paypal.android.MEP.PayPal.initWithAppID(androidAppCtx, appId, env);
+    var pp = new com.paypal.android.sdk.payments.PayPalConfiguration();
     
-    logMsg('init >> isShippingEnabled: ' + isShippingEnabled);
-    pp.setShippingEnabled(isShippingEnabled ? true : false);
+    pp.clientId(clientId);
+    
+    logMsg('init >> env: ' + env);
+    pp.environment(env);
 
     logMsg('init >> language: ' + language);    
-    pp.setLanguage(language);
-    
-    logMsg('init >> feesPayer: ' + feesPayer);    
-    pp.setFeesPayer(feesPayer);
-    
+    pp.languageOrLocale(language);
+
     if (cfg.account) {
-        if (cfg.account.phone) {
-            logMsg('init >> account >> phone: ' + cfg.account.phone);
-            pp.setAccountPhone(cfg.account.phone);
-        }
-        
-        if (cfg.account.countryDialingCode) {
-            logMsg('init >> account >> countryDialingCode: ' + cfg.account.countryDialingCode);
-            pp.setAccountCountryDialingCode(cfg.account.countryDialingCode);
-        }
-        
-        if (cfg.account.email) {
-            logMsg('init >> account >> email: ' + cfg.account.email);
-            pp.setAccountEmail(cfg.account.email);
-        }
-        
         if (cfg.account.name) {
             logMsg('init >> account >> name: ' + cfg.account.name);
-            pp.setAccountName(cfg.account.name);
+            pp.merchantName(cfg.account.name);
         }
     }
-    
+
     activity.onActivityResult = function(requestCode, resultCode, intent) {
         var resultCtx = {};
         var cb = cbCheckout;
@@ -142,23 +124,51 @@ function init(cfg) {
                 logMsg('onActivityResult >> resultCode: ' + resultCode);
                 
                 if (resultCode == android.app.Activity.RESULT_OK) {
-                    var payKey = intent.getStringExtra(com.paypal.android.MEP.PayPalActivity.EXTRA_PAY_KEY);
-                    
-                    resultCtx.code = 0;
-                    resultCtx.key = payKey;
-                    
+                    var confirm = intent.getParcelableExtra(com.paypal.android.sdk.payments.PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+                    if (confirm != null) {
+                        try {
+                            var json = confirm.toJSONObject();
+                            if (json != null) {
+                                logMsg('onActivityResult >> json: ' + json.toString(4));
+                                
+                                resultCtx.code = 0;
+                            }
+                            else {
+                                // no JSON
+                                logMsg('onActivityResult >> no JSON');
+                                
+                                resultCtx.code = 3;
+                            }
+                        }
+                        catch (e) {
+                            // JSON parse error
+                            logMsg('onActivityResult >> JSON parse error');
+                            
+                            resultCtx.code = -3;
+                            resultCtx.message = e;
+                        }
+                    }
+                    else {
+                        // no confirm data
+                        logMsg('onActivityResult >> no confirm data');
+                        
+                        resultCtx.code = 2;
+                    }
+
                     var cb = cbCheckout;
                     if (!cb) {
                         logMsg('onActivityResult >> no callback defined!');
                     }
                 }
                 else if (resultCode == android.app.Activity.RESULT_CANCELED) {
+                    logMsg('onActivityResult >> canceled');
+                    
                     resultCtx.code = 1;
                 }
-                else if (resultCode == com.paypal.android.MEP.PayPalActivity.RESULT_FAILURE) {
+                else if (resultCode == com.paypal.android.sdk.payments.PaymentActivity.RESULT_EXTRAS_INVALID) {
+                    logMsg('onActivityResult >> failure');
+                    
                     resultCtx.code = -1;
-                    resultCtx.id = intent.getStringExtra(com.paypal.android.MEP.PayPalActivity.EXTRA_ERROR_ID);
-                    resultCtx.message = intent.getStringExtra(com.paypal.android.MEP.PayPalActivity.EXTRA_ERROR_MESSAGE);
                 }
             }
             else {
@@ -173,7 +183,7 @@ function init(cfg) {
             resultCtx.code = -2;
             resultCtx.message = e;
             
-            logMsg('onActivityResult >> ERROR: ' + e);
+            logMsg('onActivityResult >> Unhandled exception: ' + e);
         }
         
         if (cb) {
@@ -181,7 +191,20 @@ function init(cfg) {
         }
     };
     
+    logMsg('init >> Starting PayPal service...');
+    
+    var serviceIntent = new android.content.Intent(activity,
+                                                   com.paypal.android.sdk.payments.PayPalService.class);
+    serviceIntent.putExtra(com.paypal.android.sdk.payments.PayPalService.EXTRA_PAYPAL_CONFIGURATION,
+                           pp);
+    
+    activity.startService(serviceIntent);
+    
+    logMsg('init >> service started');
+    
     paypal = pp;
+    
+    logMsg('init >> initialized');
 }
 exports.init = init;
 
@@ -189,103 +212,31 @@ exports.init = init;
 function newPayment() {
     var newPayment = {};
     
-    // type
-    var type = 0;
-    newPayment.getType = function() {
-        return type;    
-    };
-    newPayment.setType = function(newType) {
-        type = newType;
-    };
-    
-    // sub type
-    var subType;
-    newPayment.getSubtype = function() {
-        return subType;    
-    };
-    newPayment.setSubtype = function(newSubType) {
-        subType = newSubType;
-    };
-    
-    // subtotal
-    var subTotal;
-    newPayment.getSubtotal = function() {
-        return subTotal;    
-    };
-    newPayment.setSubtotal = function(newSubTotal) {
-        subTotal = newSubTotal;
-    };
-    
     // currency
-    var currency = defaultCurrency;
+    var currency = 'USD';
     newPayment.getCurrency = function() {
-        return currency;    
+        return currency;
     };
     newPayment.setCurrency = function(newCurrency) {
         currency = newCurrency;
     };
     
-    // recipient
-    var recipient;
-    newPayment.getRecipient = function() {
-        return recipient;    
+    // amount
+    var amount = 0;
+    newPayment.getAmount = function() {
+        return amount;
     };
-    newPayment.setRecipient = function(newRecipient) {
-        recipient = newRecipient;
-    };
-    
-    // custom ID
-    var customId;
-    newPayment.getCustomId = function() {
-        return customId;
-    };
-    newPayment.setCustomId = function(newCustomId) {
-        customId = newCustomId;
+    newPayment.setAmount = function(newAmount) {
+        amount = newAmount;
     };
     
-    // memo
-    var memo;
-    newPayment.getMemo = function() {
-        return memo;
+    // description
+    var description = null;
+    newPayment.getDescription = function() {
+        return description;
     };
-    newPayment.setMemo = function(newMemo) {
-        memo = newMemo;
-    };
-    
-    // tax
-    var tax;
-    newPayment.getTax = function() {
-        return tax;
-    };
-    newPayment.setTax = function(newTax) {
-        tax = newTax;
-    };
-    
-    // shipping
-    var shipping;
-    newPayment.getShipping = function() {
-        return shipping;
-    };
-    newPayment.setShipping = function(newShipping) {
-        shipping = newShipping;    
-    };
-    
-    // merchant name
-    var merchantName;
-    newPayment.getMerchantName = function() {
-        return merchantName;
-    };
-    newPayment.setMerchantName = function(newMerchantName) {
-        merchantName = newMerchantName;    
-    };
-    
-    // IPN URL
-    var ipnUrl;
-    newPayment.getIpnUrl = function() {
-        return ipnUrl;
-    };
-    newPayment.setIpnUrl = function(newIpnUrl) {
-        ipnUrl = newIpnUrl;    
+    newPayment.setDescription = function(newDescription) {
+        description = newDescription;
     };
     
     // start()
@@ -293,78 +244,25 @@ function newPayment() {
         try {
             cbCheckout = cb;
             
-            var invoice;
-            var createInvoiceIfNeeded = function() {
-                if (!invoice) {
-                    invoice =  new com.paypal.android.MEP.PayPalInvoiceData();
-                }
-                
-                return invoice;
-            };
+            var intentName = com.paypal.android.sdk.payments.PayPalPayment.PAYMENT_INTENT_SALE;
             
-            logMsg('newPayment >> Starting payment...');
+            logMsg('newPayment >> start >> amount: ' + amount);
+            logMsg('newPayment >> start >> currency: ' + currency);
+            logMsg('newPayment >> start >> description: ' + description);
+            logMsg('newPayment >> start >> intentName: ' + intentName);
             
-            var ppPayment = new com.paypal.android.MEP.PayPalPayment();
+            var payment = new com.paypal.android.sdk.payments.PayPalPayment(new java.math.BigDecimal(amount),
+                                                                            currency,
+                                                                            description,
+                                                                            intentName);
         
-            logMsg('newPayment >> type: ' +  type);
-            ppPayment.setPaymentType(type);
+            var intent = new android.content.Intent(activity,
+                                                    com.paypal.android.sdk.payments.PaymentActivity.class);
             
-            logMsg('newPayment >> subtotal: ' +  subTotal);
-            ppPayment.setSubtotal(new java.math.BigDecimal(subTotal));
+            intent.putExtra(com.paypal.android.sdk.payments.PayPalService.EXTRA_PAYPAL_CONFIGURATION, paypal);
+            intent.putExtra(com.paypal.android.sdk.payments.PaymentActivity.EXTRA_PAYMENT, payment);
             
-            logMsg('newPayment >> currency: ' +  currency);
-            ppPayment.setCurrencyType(currency);
-            
-            logMsg('newPayment >> recipient: ' +  recipient);
-            ppPayment.setRecipient(recipient);
-        
-            if (customId) {
-                logMsg('newPayment >> customId: ' +  customId);
-                ppPayment.setCustomID(customId);
-            }
-            
-            if (memo) {
-                logMsg('newPayment >> memo: ' +  memo);
-                ppPayment.setMemo(memo);
-            }
-            
-            if (subType) {
-                logMsg('newPayment >> subtype: ' +  subType);
-                ppPayment.setPaymentSubtype(subType);
-            }
-
-            if (tax) {
-                invoice = createInvoiceIfNeeded();
-                
-                logMsg('newPayment >> tax: ' +  tax);
-                invoice.setTax(new java.math.BigDecimal(tax));
-            }
-            
-            if (shipping) {
-                invoice = createInvoiceIfNeeded();
-                
-                logMsg('newPayment >> shipping: ' +  shipping);
-                invoice.setShipping(new java.math.BigDecimal(shipping));
-            }
-
-            if (merchantName) {
-                logMsg('newPayment >> merchantname: ' +  merchantName);
-                ppPayment.setMerchantName(merchantName);
-            }
-            
-            if (ipnUrl) {
-                logMsg('newPayment >> ipnurl: ' +  ipnUrl);
-                ppPayment.setIpnUrl(ipnUrl);
-            }
-            
-            if (invoice) {
-                logMsg('newPayment >> setting invoice data...');
-                ppPayment.setInvoiceData(invoice);
-            }
-        
-            logMsg('newPayment >> Starting checkout...');
-            var ppPaymentIntent = paypal.checkout(ppPayment, androidAppCtx);
-            activity.startActivityForResult(ppPaymentIntent, rcCheckout);
+            activity.startActivityForResult(intent, rcCheckout);
         
             return true;
         }
