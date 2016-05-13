@@ -132,6 +132,15 @@ function init(cfg) {
                                 logMsg('onActivityResult >> json: ' + json.toString(4));
                                 
                                 resultCtx.code = 0;
+                                
+                                if (json.has('response')) {
+                                    var payResp = json.getJSONObject('response');
+                                    if (payResp) {
+                                        if (payResp.has('id')) {
+                                            resultCtx.key = payResp.getString('id');
+                                        }
+                                    }
+                                }
                             }
                             else {
                                 // no JSON
