@@ -176,7 +176,7 @@ The callback that is submitted to the `payment.start` method receives an object 
 
 | Name  | Description  |
 | ----- | ----------- |
-| code | The result code. `0` = success, `-3` = JSON parse error, `-2` = unhandled exception, `-1` = cacheckout failed, `1` = cancelled, `2` = no confirm data, `3` = no JSON data |
+| code | The result code. `0` = success, `-3` = JSON parse error, `-2` = unhandled exception, `-1` = checkout failed, `1` = cancelled, `2` = no confirm data, `3` = no JSON data |
 | key | The key of the payment (if `code` = `0`)
 
 ## Enhancements

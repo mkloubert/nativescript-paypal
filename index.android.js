@@ -75,8 +75,6 @@ function init(cfg) {
         env = com.paypal.android.sdk.payments.PayPalConfiguration.ENVIRONMENT_PRODUCTION;
     }
     else {
-        clientId = 'APP-80W284485P519543T';
-        
         env = com.paypal.android.sdk.payments.PayPalConfiguration.ENVIRONMENT_SANDBOX;
     }
     
@@ -390,6 +388,8 @@ function newPayment() {
                 
                 payment.bnCode(bnCode);
             }
+            
+            logMsg('newPayment >> start >> starting payment activity...');
         
             var intent = new android.content.Intent(activity,
                                                     com.paypal.android.sdk.payments.PaymentActivity.class);
@@ -398,7 +398,9 @@ function newPayment() {
             intent.putExtra(com.paypal.android.sdk.payments.PaymentActivity.EXTRA_PAYMENT, payment);
             
             activity.startActivityForResult(intent, rcCheckout);
-        
+
+            logMsg('newPayment >> start >> payment activity started.');
+            
             return true;
         }
         catch (e) {
