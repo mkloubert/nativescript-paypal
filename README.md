@@ -82,6 +82,12 @@ dependencies {
 }
 ```
 
+## Demo
+
+For quick start have a look at the [demo/app/main-view-model.js](https://github.com/mkloubert/nativescript-paypal/blob/master/demo/app/main-view-model.js) file of the [demo app](https://github.com/mkloubert/nativescript-paypal/tree/master/demo) to learn how it works.
+
+Otherwise ...
+
 ## Usage
 
 ### Include
