@@ -27,7 +27,7 @@ Run `tns plugin add nativescript-paypal` inside your app project to install the 
 
 #### AndroidManifest.xml
 
-Keep sure to define the following permissions and having a reference to the [PayPalActivity](https://www.paypalobjects.com/webstatic/en_US/developer/docs/pdf/pp_mpl_developer_guide_and_reference_android.pdf) in your manifest file:
+Keep sure to define the following permissions in your manifest file:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
