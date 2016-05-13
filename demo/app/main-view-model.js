@@ -16,10 +16,13 @@ function createViewModel() {
     var vm = new Observable();
     
     vm.init = function() {
+        // add a logger callback to see
+        // what module does
         PayPal.addLogger(function(msg) {
             console.log('[nativescript-paypal] ' + msg);
         });
         
+        // initialize PayPal environment
         PayPal.init({
             // if you would like use the SandBox
             // add the client ID here
@@ -31,11 +34,14 @@ function createViewModel() {
     };
 
     vm.startPayPalCheckout = function() {
+        // create and setup
+        // a new payment
         var payment = PayPal.newPayment()
             .setDescription('Test product')
             .setAmount(1.23)
             .setCurrency('EUR');
-            
+        
+        // start the checkout    
         payment.start(function(result) {
             console.log('payment result code: ' + result.code);
         });
