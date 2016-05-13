@@ -283,6 +283,15 @@ function newPayment() {
         details = new com.paypal.android.sdk.payments.PayPalPaymentDetails(shipping, subtotal, tax);
     };
     
+    // BN code
+    var bnCode;
+    newPayment.getBnCode = function() {
+        return bnCode;
+    };
+    newPayment.setBnCode = function(newBnCode) {
+        bnCode = newBnCode;
+    };
+    
     // start()
     newPayment.start = function(cb) {
         try {
@@ -318,6 +327,12 @@ function newPayment() {
                 logMsg('newPayment >> start >> invoicenumber: ' + invoiceNumber);
                 
                 payment.invoiceNumber(invoiceNumber);
+            }
+            
+            if (bnCode) {
+                logMsg('newPayment >> start >> bncode: ' + bnCode);
+                
+                payment.bnCode(bnCode);
             }
         
             var intent = new android.content.Intent(activity,

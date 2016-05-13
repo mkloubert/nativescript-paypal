@@ -138,12 +138,14 @@ The `payment` object that is created by `PayPal.newPayment` function has the fol
 | Name  | Description  |
 | ----- | ----------- |
 | getAmount | Gets the price. Example: `var a = payment.getAmount();` |
+| getBnCode | Gets the BN code. Example: `var bc = payment.getBnCode();` |
 | getCurrency | Gets the custom currency to use. Example: `var c = payment.getCurrency();` |
 | getCustom | Gets the custom value for the payment. Example: `var c = payment.getCustom();` |
 | getDescription | Gets the (short) description. Example: `var d = payment.getDescription();` |
 | getDetails | Gets an object with the payment details. Example: `var d = payment.getDetails();` |
 | getInvoiceNumber | Gets the custom invoice number. Example: `var i = payment.getInvoiceNumber();` |
 | setAmount | Sets the price. Example: `payment.setAmount(1.25);` |
+| setBnCode | Sets a BN code. Example: `payment.setBnCode('Your BN Code');` |
 | setCurrency | Sets the custom currency to use. Example: `payment.setCurrency('EUR');` |
 | setCustom | Sets the custom value for the payment. Example: `payment.setCustom('MY-PRODUCT-ID');` |
 | setDetails | Sets details (shipping, subtotal & tax). Example: `payment.setDetails(4.95, 199.99, 1.19);` |
