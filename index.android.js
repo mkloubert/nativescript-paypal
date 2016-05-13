@@ -239,6 +239,24 @@ function newPayment() {
         description = newDescription;
     };
     
+    // custom
+    var custom;
+    newPayment.getCustom = function() {
+        return custom;
+    };
+    newPayment.setCustom = function(newCustom) {
+        custom = newCustom;
+    };
+    
+    // invoice number
+    var invoiceNumber;
+    newPayment.getInvoiceNumber = function() {
+        return invoiceNumber;
+    };
+    newPayment.setInvoiceNumber = function(newInvoiceNumber) {
+        invoiceNumber = newInvoiceNumber;
+    };
+    
     // start()
     newPayment.start = function(cb) {
         try {
@@ -255,6 +273,18 @@ function newPayment() {
                                                                             currency,
                                                                             description,
                                                                             intentName);
+                                                                            
+            if (custom) {
+                logMsg('newPayment >> start >> custom: ' + custom);
+                
+                payment.custom(custom);
+            }
+            
+            if (invoiceNumber) {
+                logMsg('newPayment >> start >> invoicenumber: ' + invoiceNumber);
+                
+                payment.invoiceNumber(invoiceNumber);
+            }
         
             var intent = new android.content.Intent(activity,
                                                     com.paypal.android.sdk.payments.PaymentActivity.class);
