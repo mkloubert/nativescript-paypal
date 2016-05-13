@@ -84,6 +84,7 @@ The (optional) object that is submitted to the `PayPal.init` function has the fo
 | acceptCreditCards  | [OPTIONAL] Accept credit cards or not. Default: `(true)`  |
 | account | [OPTIONAL] Defines information about the account. |
 | clientId  | The PayPal ID for your app that was generated in the [PayPal Developer Portal](https://www.paypal-apps.com/user/my-account/applications).  |
+| defaults | [OPTIONAL] Defines default data. |
 | environment  | [OPTIONAL] The environment to use. Possible values are: `0` = `ENVIRONMENT_SANDBOX`, `1` = `ENVIRONMENT_PRODUCTION`, `2` = `ENVIRONMENT_NO_NETWORK`.  |
 | onActivityResult  | [OPTIONAL] Logic for [Activity.onActivityResult](http://developer.android.com/reference/android/app/Activity.html#onActivityResult%28int,%20int,%20android.content.Intent%29) method of the underlying Android activity that is used to invoke logic for other modules, e.g. |
 | rememberUser  | [OPTIONAL] Remember the last user for the next payment or not. Default: `(true)`  |
@@ -100,6 +101,18 @@ The `account` object has the following structure:
 | name | [OPTIONAL] The name of the merchant. |
 | privacyPolicy | [OPTIONAL] The URI to the privacy policy of the merchant. |
 | userAgreement | [OPTIONAL] The URI to the user agreement of the merchant. |
+
+##### defaults
+
+The `defaults` object has the following structure:
+
+###### Properties
+
+| Name  | Description  |
+| ----- | ----------- |
+| userEmail | [OPTIONAL] The default user email. |
+| userPhone | [OPTIONAL] The default user phone. |
+| userPhoneCountryCode | [OPTIONAL] The default user phone country code. |
 
 ### Start a payment
 
@@ -164,6 +177,7 @@ The callback that is submitted to the `payment.start` method receives an object 
 | Name  | Description  |
 | ----- | ----------- |
 | code | The result code. `0` = success, `-3` = JSON parse error, `-2` = unhandled exception, `-1` = cacheckout failed, `1` = cancelled, `2` = no confirm data, `3` = no JSON data |
+| key | The key of the payment (if `code` = `0`)
 
 ## Enhancements
 

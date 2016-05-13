@@ -141,6 +141,26 @@ function init(cfg) {
             pp.merchantUserAgreementUri(android.net.Uri.parse(cfg.account.userAgreement));
         }
     }
+    
+    if (cfg.defaults) {
+        if (cfg.defaults.userEmail) {
+            logMsg('init >> defaults >> useremail: ' + cfg.defaults.userEmail);
+            
+            pp.defaultUserEmail(cfg.defaults.userEmail);
+        }
+        
+        if (cfg.defaults.userPhone) {
+            logMsg('init >> defaults >> userphone: ' + cfg.defaults.userPhone);
+            
+            pp.defaultUserPhone(cfg.defaults.userPhone);
+        }
+        
+        if (cfg.defaults.userPhoneCountryCode) {
+            logMsg('init >> defaults >> userphonecountrycode: ' + cfg.defaults.userPhoneCountryCode);
+            
+            pp.defaultUserPhoneCountryCode(cfg.defaults.userPhoneCountryCode);
+        }
+    }
 
     activity.onActivityResult = function(requestCode, resultCode, intent) {
         var resultCtx = {};
