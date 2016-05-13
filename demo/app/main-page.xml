@@ -1,7 +1,11 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+  <Page.actionBar>
+    <ActionBar title="nativescript-paypal Demo">
+    </ActionBar>
+  </Page.actionBar>
+
   <StackLayout>
-    <Label text="Tap the button" class="title"/>
-    <Button text="TAP" tap="{{ onTap }}" />
-    <Label text="{{ message }}" class="message" textWrap="true"/>
+    <Button text="Start checkout"
+            tap="{{ startPayPalCheckout }}" />
   </StackLayout>
 </Page>
