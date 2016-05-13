@@ -27,17 +27,41 @@ Run `tns plugin add nativescript-paypal` inside your app project to install the 
 
 #### AndroidManifest.xml
 
-Keep sure to define the following permissions in your manifest file:
+Keep sure to define the following permissions, activities and other data in your manifest file:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />    
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    
+    <action android:name="android.intent.action.MAIN" />
+ 
+    <category android:name="android.intent.category.LAUNCHER" />
+    
+    <service android:name="com.paypal.android.sdk.payments.PayPalService"
+             android:exported="false" />
+             
+    <uses-feature android:name="android.hardware.camera"
+                  android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus"
+                  android:required="false" />
 
+    <application>
+        <activity android:name="com.paypal.android.sdk.payments.PaymentActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.LoginActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PayPalFuturePaymentActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.FuturePaymentConsentActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.FuturePaymentInfoActivity" />
+ 
+        <activity android:name="io.card.payment.DataEntryActivity" />
+    </application>
 </manifest>
 ```
 
