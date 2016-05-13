@@ -1,7 +1,7 @@
 {
   "name": "nativescript-paypal",
   "description": "A NativeScript module providing access to PayPal SDK.",
-  "version": "2.6.4",
+  "version": "2.6.5",
   "nativescript": {
     "platforms": {
       "android": "1.1.0"
