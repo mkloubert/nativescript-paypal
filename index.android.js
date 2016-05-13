@@ -116,16 +116,29 @@ function init(cfg) {
     logMsg('init >> language: ' + language);    
     pp.languageOrLocale(language);
     
-    logMsg('init >> rememberUser: ' + rememberUser);
+    logMsg('init >> rememberuser: ' + rememberUser);
     pp.rememberUser(rememberUser ? true : false);
     
-    logMsg('init >> acceptCreditCards: ' + acceptCreditCards);
+    logMsg('init >> acceptcreditcards: ' + acceptCreditCards);
     pp.acceptCreditCards(acceptCreditCards ? true : false);
     
     if (cfg.account) {
         if (cfg.account.name) {
             logMsg('init >> account >> name: ' + cfg.account.name);
+            
             pp.merchantName(cfg.account.name);
+        }
+        
+        if (cfg.account.privacyPolicy) {
+            logMsg('init >> account >> privacypolicy: ' + cfg.account.privacyPolicy);
+            
+            pp.merchantPrivacyPolicyUri(android.net.Uri.parse(cfg.account.privacyPolicy));
+        }
+        
+        if (cfg.account.userAgreement) {
+            logMsg('init >> account >> useragreement: ' + cfg.account.userAgreement);
+            
+            pp.merchantUserAgreementUri(android.net.Uri.parse(cfg.account.userAgreement));
         }
     }
 
@@ -134,10 +147,10 @@ function init(cfg) {
         var cb = cbCheckout;
 
         try {
-            logMsg('onActivityResult >> requestCode: ' + requestCode);
+            logMsg('onActivityResult >> requestcode: ' + requestCode);
 
             if (requestCode == rcCheckout) {
-                logMsg('onActivityResult >> resultCode: ' + resultCode);
+                logMsg('onActivityResult >> resultcode: ' + resultCode);
                 
                 if (resultCode == android.app.Activity.RESULT_OK) {
                     var confirm = intent.getParcelableExtra(com.paypal.android.sdk.payments.PaymentActivity.EXTRA_RESULT_CONFIRMATION);

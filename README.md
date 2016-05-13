@@ -98,6 +98,8 @@ The `account` object has the following structure:
 | Name  | Description  |
 | ----- | ----------- |
 | name | [OPTIONAL] The name of the merchant. |
+| privacyPolicy | [OPTIONAL] The URI to the privacy policy of the merchant. |
+| userAgreement | [OPTIONAL] The URI to the user agreement of the merchant. |
 
 ### Start a payment
 
