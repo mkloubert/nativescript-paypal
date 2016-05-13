@@ -82,7 +82,7 @@ The (optional) object that is submitted to the `PayPal.init` function has the fo
 | Name  | Description  |
 | ----- | ----------- |
 | account | [OPTIONAL] Defines information about the account. |
-| clientId  | The PayPal ID for your app that was generated in the [PayPal Developer Portal](https://www.paypal-apps.com/user/my-account/applications). If not defined, the environment is set upped for the SandBox and uses `APP-80W284485P519543T` as value.  |
+| clientId  | The PayPal ID for your app that was generated in the [PayPal Developer Portal](https://www.paypal-apps.com/user/my-account/applications).  |
 | environment  | [OPTIONAL] The environment to use. Possible values are: `0` = `ENVIRONMENT_SANDBOX`, `1` = `ENVIRONMENT_PRODUCTION`, `2` = `ENVIRONMENT_NO_NETWORK`.  |
 | onActivityResult  | [OPTIONAL] Logic for [Activity.onActivityResult](http://developer.android.com/reference/android/app/Activity.html#onActivityResult%28int,%20int,%20android.content.Intent%29) method of the underlying Android activity that is used to invoke logic for other modules, e.g. |
 | requestCode  | [OPTIONAL] The custom request code to use (e.g. for [Activity.onActivityResult](http://developer.android.com/reference/android/app/Activity.html#onActivityResult%28int,%20int,%20android.content.Intent%29) Android method). Default: `230958624`  |
