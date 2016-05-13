@@ -43,7 +43,30 @@ function createViewModel() {
         
         // start the checkout    
         payment.start(function(result) {
-            console.log('payment result code: ' + result.code);
+            var logPrefix = '[payment result] ';
+            console.log(logPrefix + 'code: ' + result.code);
+            
+            switch (result.code) {
+                case 0:
+                    console.log(logPrefix + 'Success: ' + result.key); 
+                    break;
+                    
+                case 1:
+                    console.log(logPrefix + 'Operation was cancelled.');
+                    break;
+                    
+                case -1:
+                    console.log(logPrefix + 'Checkout failed!');
+                    break;
+                    
+                case -2:
+                    console.log(logPrefix + 'Unhandled exception!');
+                    break;
+                    
+                default:
+                    console.log(logPrefix + 'UNKNOWN: ' + result.code);
+                    break;
+            }
         });
     };
 
