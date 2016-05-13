@@ -37,16 +37,19 @@ Keep sure to define the following permissions and having a reference to the [Pay
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    
-    <application>
-    
-      <activity android:name="com.paypal.android.MEP.PayPalActivity"
-                android:configChanges="keyboardHidden|orientation"
-                android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-    
-    </application>
-    
+
 </manifest>
+```
+
+### app.gradle
+
+Keep sure to have a reference to the PayPal SDK in your `app/App_Resources/Android/app.gradle` file of your project.
+
+```gradle
+dependencies {
+    // PayPal
+    compile 'com.paypal.sdk:paypal-android-sdk:2.14.2'
+}
 ```
 
 ## Usage
@@ -66,7 +69,7 @@ Initialize the environment:
 ```javascript
 function onPageLoaded(args) {
     PayPal.init({
-        appId: '<YOUR-APP-ID>'
+        clientId: '<YOUR-CLIENT-ID>'
     });
 }
 exports.onPageLoaded = onPageLoaded;
@@ -134,7 +137,7 @@ The `payment` object that is created by `PayPal.newPayment` function has the fol
 
 | Name  | Description  |
 | ----- | ----------- |
-| getAmount | Gets the prince. Example: `var p = payment.getAmount();` |
+| getAmount | Gets the prince. Example: `var a = payment.getAmount();` |
 | getCurrency | Gets the custom currency to use. Example: `var c = payment.getCurrency();` |
 | getDescription | Gets the (short) description. Example: `var d = payment.getDescription();` |
 | setAmount | Sets the prince. Example: `payment.setAmount(1.25);` |
@@ -148,7 +151,7 @@ The callback that is submitted to the `payment.start` method receives an object 
 
 | Name  | Description  |
 | ----- | ----------- |
-| code | The result code. `0` = success, `3` = JSON parse error, `-2` = unhandled exception, `-1` = cacheckout failed, `1` = cancelled, `2` = no confirm data, `3` = no JSON data |
+| code | The result code. `0` = success, `-3` = JSON parse error, `-2` = unhandled exception, `-1` = cacheckout failed, `1` = cancelled, `2` = no confirm data, `3` = no JSON data |
 
 ## Enhancements
 
