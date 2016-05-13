@@ -1,7 +1,7 @@
 {
   "name": "nativescript-paypal",
   "description": "A NativeScript module providing access to PayPal SDK.",
-  "version": "2.6.5",
+  "version": "2.6.7",
   "nativescript": {
     "platforms": {
       "android": "1.1.0"
@@ -12,7 +12,9 @@
     "url": "https://github.com/mkloubert/nativescript-paypal"
   },
   "keywords": [
-    "NativeScript", "PayPal", "SDK"
+    "NativeScript",
+    "PayPal",
+    "SDK"
   ],
   "author": {
     "name": "Marcel Joachim Kloubert",
