@@ -277,6 +277,7 @@ function newPayment() {
     };
     newPayment.setCurrency = function(newCurrency) {
         currency = newCurrency;
+        return this;
     };
     
     // amount
@@ -286,6 +287,7 @@ function newPayment() {
     };
     newPayment.setAmount = function(newAmount) {
         amount = newAmount;
+        return this;
     };
     
     // description
@@ -295,6 +297,7 @@ function newPayment() {
     };
     newPayment.setDescription = function(newDescription) {
         description = newDescription;
+        return this;
     };
     
     // custom
@@ -304,6 +307,7 @@ function newPayment() {
     };
     newPayment.setCustom = function(newCustom) {
         custom = newCustom;
+        return this;
     };
     
     // invoice number
@@ -313,6 +317,7 @@ function newPayment() {
     };
     newPayment.setInvoiceNumber = function(newInvoiceNumber) {
         invoiceNumber = newInvoiceNumber;
+        return this;
     };
     
     // details
@@ -330,6 +335,7 @@ function newPayment() {
     };
     newPayment.setDetails = function(shipping, subtotal, tax) {
         details = new com.paypal.android.sdk.payments.PayPalPaymentDetails(shipping, subtotal, tax);
+        return this;
     };
     
     // BN code
@@ -339,8 +345,9 @@ function newPayment() {
     };
     newPayment.setBnCode = function(newBnCode) {
         bnCode = newBnCode;
+        return this;
     };
-    
+
     // start()
     newPayment.start = function(cb) {
         try {

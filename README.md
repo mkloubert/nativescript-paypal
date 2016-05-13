@@ -118,11 +118,11 @@ The `defaults` object has the following structure:
 
 ```javascript
 function buyProduct(args) {
-    var payment = PayPal.newPayment();
-    
-    // the price
-    payment.setAmount(59.79);
-    
+    // configure
+    var payment = PayPal.newPayment()
+        .setDescription('My product')
+        .setAmount(59.79);
+
     // start checkout / payment
     payment.start(function(cbResult) {
         switch (cbResult.code) {
