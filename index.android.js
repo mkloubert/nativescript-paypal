@@ -266,6 +266,23 @@ function newPayment() {
         invoiceNumber = newInvoiceNumber;
     };
     
+    // details
+    var details;
+    newPayment.getDetails = function() {
+        if (!details) {
+            return null;
+        }
+        
+        return {
+            shipping: details.getShipping(),
+            subtotal: details.getSubtotal(),
+            tax: details.getTax()
+        };
+    };
+    newPayment.setDetails = function(shipping, subtotal, tax) {
+        details = new com.paypal.android.sdk.payments.PayPalPaymentDetails(shipping, subtotal, tax);
+    };
+    
     // start()
     newPayment.start = function(cb) {
         try {
@@ -282,6 +299,14 @@ function newPayment() {
                                                                             currency,
                                                                             description,
                                                                             intentName);
+                                                                            
+            if (details) {
+                logMsg('newPayment >> start >> details >> shipping: ' + details.getShipping());
+                logMsg('newPayment >> start >> details >> subtotal: ' + details.getSubtotal());
+                logMsg('newPayment >> start >> details >> tax: ' + details.getTax());
+                
+                payment.paymentDetails(details);
+            }
                                                                             
             if (custom) {
                 logMsg('newPayment >> start >> custom: ' + custom);
