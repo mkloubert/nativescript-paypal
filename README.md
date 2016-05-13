@@ -80,7 +80,6 @@ The (optional) object that is submitted to the `PayPal.init` function has the fo
 | ----- | ----------- |
 | account | [OPTIONAL] Defines information about the account. |
 | clientId  | The PayPal ID for your app that was generated in the [PayPal Developer Portal](https://www.paypal-apps.com/user/my-account/applications). If not defined, the environment is set upped for the SandBox and uses `APP-80W284485P519543T` as value.  |
-| defaultCurrency  | [OPTIONAL] The default currency to use. Default: `USD`  |
 | environment  | [OPTIONAL] The environment to use. Possible values are: `0` = `ENVIRONMENT_SANDBOX`, `1` = `ENVIRONMENT_PRODUCTION`, `2` = `ENVIRONMENT_NO_NETWORK`.  |
 | onActivityResult  | [OPTIONAL] Logic for [Activity.onActivityResult](http://developer.android.com/reference/android/app/Activity.html#onActivityResult%28int,%20int,%20android.content.Intent%29) method of the underlying Android activity that is used to invoke logic for other modules, e.g. |
 | requestCode  | [OPTIONAL] The custom request code to use (e.g. for [Activity.onActivityResult](http://developer.android.com/reference/android/app/Activity.html#onActivityResult%28int,%20int,%20android.content.Intent%29) Android method). Default: `230958624`  |
@@ -101,12 +100,8 @@ The `account` object has the following structure:
 function buyProduct(args) {
     var payment = PayPal.newPayment();
     
-    // the price (without taxes)
-    payment.setSubtotal(59.79);
-    
-    // the email address of
-    // the recipient's PayPal account
-    payment.setRecipient('paypal@example.com');
+    // the price
+    payment.setAmount(59.79);
     
     // start checkout / payment
     payment.start(function(cbResult) {
@@ -122,15 +117,10 @@ function buyProduct(args) {
                 
             case -1:
                 // checkout FAILED
-                // use 'cbResult.id'
-                // and 'cbResult.message'
-                // to get more information
                 break;
                 
             case -2:
                 // "unhandled exception"
-                // and 'cbResult.message'
-                // to get more information
                 break;
         }
     });
@@ -144,29 +134,13 @@ The `payment` object that is created by `PayPal.newPayment` function has the fol
 
 | Name  | Description  |
 | ----- | ----------- |
+| getAmount | Gets the prince. Example: `var p = payment.getAmount();` |
 | getCurrency | Gets the custom currency to use. Example: `var c = payment.getCurrency();` |
-| getCustomId | Gets the custom ID for the payment. Example: `var cId = payment.getCustomId();` |
-| getIpnUrl | Gets the IPN url to call by PayPal after a checkout. Example: `var ipn = payment.getIpnUrl();` |
-| getMemo | Gets the memo. Example: `var m = payment.getMemo();` |
-| getMerchantName | Gets the name of the merchant. Example: `var mn = payment.getMerchantName();` |
-| getRecipient | Gets the recipient (email of the PayPal account, e.g.) of the payment. Example: `var r = payment.getRecipient();` |
-| getShipping | Gets the shipping. Example: `var s = payment.getShipping();` |
-| getSubtotal | Gets the prices without taxes. Example: `var st = payment.getSubtotal();` |
-| getSubtype | Gets the payment sub type. `var st = payment.getSubtype();` |
-| getTax | Gets the tax rate. Example: `var t = payment.getTax();` |
-| getType | Gets the payment type. `var t = payment.getType();` |
+| getDescription | Gets the (short) description. Example: `var d = payment.getDescription();` |
+| setAmount | Sets the prince. Example: `payment.setAmount(1.25);` |
 | setCurrency | Sets the custom currency to use. Example: `payment.setCurrency('EUR');` |
-| setCustomId | Sets the custom ID for the payment. Example: `payment.setCustomId('my-product-id');` |
-| setIpnUrl | Sets the IPN url to call by PayPal after a checkout (s. [Instant Payment Notification](https://developer.paypal.com/webapps/developer/docs/classic/products/instant-payment-notification/)). Example: `payment.getIpnUrl('https://example.com/ipn');` |
-| setMemo | Sets the memo. Example: `payment.setMemo('This is a memo about the payment.');` |
-| setMerchantName | Sets the name of the merchant. Example: `payment.setMerchantName('My store');` |
-| setRecipient | Sets the recipient (email of the PayPal account, e.g.) of the payment. Example: `payment.setRecipient('paypal@example.com');` |
-| setShipping | Sets the shipping. Example: `payment.setShipping(10);` |
-| setSubtotal | Sets the prices without taxes. Example: `payment.setSubtotal(1.25);` |
-| setSubtype | Sets the payment sub type. Possible values are: `0` = `PAYMENT_SUBTYPE_AFFILIATE`, `1` = `PAYMENT_SUBTYPE_B2B`, `2` = `PAYMENT_SUBTYPE_PAYROLL`, `3` = `PAYMENT_SUBTYPE_REBATES`, `4` = `PAYMENT_SUBTYPE_REFUNDS`, `5` = `PAYMENT_SUBTYPE_REIMBUSEMENTS`, `5` = `PAYMENT_SUBTYPE_REIMBURSEMENTS`, `6` = `PAYMENT_SUBTYPE_DONATIONS` `7` = `PAYMENT_SUBTYPE_UTILITIES`, `8` = `PAYMENT_SUBTYPE_TUITION`, `9` = `PAYMENT_SUBTYPE_GOVERNMENT`, `10` = `PAYMENT_SUBTYPE_INSURANCE`, `11` = `PAYMENT_SUBTYPE_REMITTANCES`, `12` = `PAYMENT_SUBTYPE_RENT`, `13` = `PAYMENT_SUBTYPE_MORTGAGE`, `14` = `PAYMENT_SUBTYPE_MEDICAL`, `15` = `PAYMENT_SUBTYPE_CHILDCARE`, `16` = `PAYMENT_SUBTYPE_EVENTS`, `17` = `PAYMENT_SUBTYPE_CONTRACTORS`, `18` = `PAYMENT_SUBTYPE_ENTERTAINMENT`, `19` = `PAYMENT_SUBTYPE_TOURISM`, `20` = `PAYMENT_SUBTYPE_INVOICE`, `21` = `PAYMENT_SUBTYPE_TRANSFER`, `22` = `PAYMENT_SUBTYPE_NONE`  |
-| setTax | Sets the tax rate. Example: `payment.setTax(2.20);` |
-| setType | Sets the payment type. Possible values are: `0` = `PAYMENT_TYPE_GOODS`, `1` = `PAYMENT_TYPE_SERVICE`, `2` = `PAYMENT_TYPE_PERSONAL`, `3` = `PAYMENT_TYPE_NONE`  |
-| start | Starts the payment by defining a callback that is invoked after operation has been done.  |
+| setDescription | Sets the (short) description. Example: `payment.setDescription('This is really awesom!');` |
+| start | Starts the payment / checkout process. |
 
 ###### start
 
@@ -174,10 +148,7 @@ The callback that is submitted to the `payment.start` method receives an object 
 
 | Name  | Description  |
 | ----- | ----------- |
-| code | The result code. `0` = success, `1` = cancelled, `-1` = error |
-| id | The error ID (if `code` = `-1`) |
-| key | The pay key returned by PayPal after successful transaction (if `code` = `0`) |
-| message | The error message (if `code` = `-1` or `-2`) |
+| code | The result code. `0` = success, `3` = JSON parse error, `-2` = unhandled exception, `-1` = cacheckout failed, `1` = cancelled, `2` = no confirm data, `3` = no JSON data |
 
 ## Enhancements
 
