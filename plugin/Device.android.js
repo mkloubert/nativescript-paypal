@@ -29,7 +29,7 @@ var androidAppCtx = androidApp.context;
 var activity;
 var cbCheckout;
 var language;
-var loggers = [];
+var loggerActionProvider;
 var payPal;
 var rcCheckout;
 
@@ -162,7 +162,9 @@ function createNewPayment() {
 };
 exports.createNewPayment = createNewPayment;
 
-function initPayPal(cfg) {
+function initPayPal(cfg, logActionFunc) {
+    loggerActionProvider = logActionFunc;
+
     activity = cfg.activity || androidApp.foregroundActivity || androidApp.startActivity;
     if (!activity) {
         return false;  // we need an Activity here
@@ -353,3 +355,16 @@ function initPayPal(cfg) {
     paypal = pp;
 };
 exports.initPayPal = initPayPal;
+
+function logMsg(msg) {
+    var loggers = loggerActionProvider();
+
+    for (var i = 0; i < loggers.length; i++) {
+        var logAction = loggers[i];
+        
+        try {
+            logAction(msg);
+        }
+        catch (e) { /* ignore */ }
+    }
+}

@@ -1,37 +1,11 @@
-// The MIT License (MIT)
-// 
-// Copyright (c) Marcel Joachim Kloubert <marcel.kloubert@gmx.net>
-// 
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to
-// deal in the Software without restriction, including without limitation the
-// rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-// sell copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-// 
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-// 
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-// DEALINGS IN THE SOFTWARE.
-
-var Device = require('./Device');
-import TypeUtils = require('utils/types');
-
 /**
  * Describes a logger action.
  */
-export type LoggerAction = (msg: string) => void;
+export declare type LoggerAction = (msg: string) => void;
 /**
  * Describes a callback for starting a payment.
  */
-export type StartPayPalPaymentCallback = (resultCtx: IStartPayPalPaymentCallbackResult) => void;
-
+export declare type StartPayPalPaymentCallback = (resultCtx: IStartPayPalPaymentCallbackResult) => void;
 /**
  * Describes a payment.
  */
@@ -66,73 +40,71 @@ export interface IPayPalPayment {
     getInvoiceNumber(): string;
     /**
      * Sets the amount.
-     * 
+     *
      * @param {number} newAmount The new value.
-     * 
+     *
      * @chainable
      */
     setAmount(newAmount: number): IPayPalPayment;
     /**
      * Sets the Build Notation code.
-     * 
+     *
      * @param {number} newBnCode The new value.
-     * 
+     *
      * @chainable
      */
-    setBnCode(newBnCode: string);
+    setBnCode(newBnCode: string): any;
     /**
      * Sets the currency.
-     * 
+     *
      * @param {number} newCurrency The new value.
-     * 
+     *
      * @chainable
      */
     setCurrency(newCurrency: string): IPayPalPayment;
     /**
      * Sets the custom app provided payment field.
-     * 
+     *
      * @param {number} newCustom The new value.
-     * 
+     *
      * @chainable
      */
     setCustom(newCustom: string): IPayPalPayment;
     /**
      * Sets the description.
-     * 
+     *
      * @param {string} newDescription The new value.
-     * 
+     *
      * @chainable
      */
     setDescription(newDescription: string): IPayPalPayment;
     /**
      * Sets the payment details.
-     * 
+     *
      * @param {number} shipping Amount charged for shipping.
      * @param {number} subtotal Sub-total (amount) of items being paid for.
      * @param {number} tax Amount charged for tax.
-     * 
+     *
      * @chainable
      */
     setDetails(shipping: number, subtotal: number, tax: number): IPayPalPayment;
     /**
      * Sets the invoice number.
-     * 
+     *
      * @param {string} newInvoiceNumber The new value.
-     * 
+     *
      * @chainable
      */
     setInvoiceNumber(newInvoiceNumber: string): IPayPalPayment;
-
     /**
      * Starts the payment operation.
-     * 
+     *
      * @param {StartPayPalPaymentCallback} [cb] The optional callback.
-     * 
+     *
      * @return {boolean} Operation was successful or not.
      */
     start(cb?: StartPayPalPaymentCallback): boolean;
 }
-
 /**
  * Payment details.
  */
@@ -150,7 +122,6 @@ export interface IPayPalPaymentDetails {
      */
     tax: number;
 }
-
 /**
  * Environment configuration.
  */
@@ -222,7 +193,6 @@ export interface IPayPalConfig {
      */
     rememberUser?: boolean;
 }
-
 /**
  * Describes a result for a callback that (tried) to start a payment.
  */
@@ -231,74 +201,49 @@ export interface IStartPayPalPaymentCallbackResult {
      * The code.
      */
     code: number;
-
     /**
      * The key (if succeeded).
      */
     key?: string;
-
     /**
      * The (error) message.
      */
     message?: any;
 }
-
 /**
  * List of environments.
  */
-export enum PayPalEnvironment {
+export declare enum PayPalEnvironment {
     /**
      * SandBox
      */
     SandBox = 0,
-
     /**
      * Productive
      */
     Production = 1,
-
     /**
      * No network
      */
     NoNetwork = 2,
 }
-
-const LOGGER_ACTIONS: LoggerAction[] = [];
-
 /**
  * Adds a logger (action).
- * 
+ *
  * @param {LoggerAction} l The action to add.
  */
-export function addLogger(l: LoggerAction) {
-    if (!TypeUtils.isNullOrUndefined(l)) {
-        LOGGER_ACTIONS.push(l);
-    }
-}
-
+export declare function addLogger(l: LoggerAction): void;
 /**
  * Initializes the environment.
- * 
+ *
  * @param {IPayPalConfig} [cfg] The configuration to use.
- * 
+ *
  * @param {boolean} Operation was successful or not.
  */
-export function init(cfg?: IPayPalConfig): boolean {
-    if (TypeUtils.isNullOrUndefined(cfg)) {
-        cfg = {};
-    }
-
-    return Device.initPayPal(cfg,
-                             function() {
-                                 return LOGGER_ACTIONS;
-                             });
-}
-
+export declare function init(cfg?: IPayPalConfig): boolean;
 /**
  * Creates a new payment.
- * 
+ *
  * @return {IPayPalPayment} The new payment.
  */
-export function newPayment(): IPayPalPayment {
-    return Device.createNewPayment();
-}
+export declare function newPayment(): IPayPalPayment;
