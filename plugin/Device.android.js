@@ -36,7 +36,7 @@ var rcCheckout;
 function addLogger(l) {
     loggers.push(l);
 };
-exports.addLogger = addLogger;  //TODO: exports
+exports.addLogger = addLogger;
 
 // logMsg()
 function logMsg(msg) {
@@ -274,7 +274,7 @@ function init(cfg) {
     
     logMsg('init >> initialized');
 }
-exports.init = init;   //TODO: exports
+exports.init = init;
 
 // newPayment()
 function newPayment() {
@@ -344,7 +344,9 @@ function newPayment() {
         };
     };
     newPayment.setDetails = function(shipping, subtotal, tax) {
-        details = new com.paypal.android.sdk.payments.PayPalPaymentDetails(shipping, subtotal, tax);
+        details = new com.paypal.android.sdk.payments.PayPalPaymentDetails(new java.math.BigDecimal(shipping),
+                                                                           new java.math.BigDecimal(subtotal),
+                                                                           new java.math.BigDecimal(tax));
         return this;
     };
     
@@ -424,4 +426,4 @@ function newPayment() {
     
     return newPayment;
 }
-exports.newPayment = newPayment;   //TODO: exports
+exports.newPayment = newPayment;
