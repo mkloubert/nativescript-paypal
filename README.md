@@ -160,7 +160,7 @@ export function buyProduct() {
               .setAmount(59.79);
 
     // start checkout / payment
-    payment.start((cbResult: PaymentResult) => {
+    payment.start((cbResult: PayPal.IPaymentResult) => {
         switch (cbResult.code) {
             case 0:
                 // SUCCESS
