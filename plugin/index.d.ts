@@ -208,11 +208,15 @@ export interface PaymentResult {
     /**
      * The code.
      */
-    code: number;
+    readonly code: number;
+    /**
+     * The key of the payment (if code = 0).
+     */
+    readonly key?: string;
     /**
      * The message.
      */
-    message?: string;
+    readonly message?: string;
 }
 /**
  * List of environments.
