@@ -3,7 +3,7 @@
 
 # NativeScript PayPal
 
-[NativeScript](https://www.nativescript.org/) module for implementing simple PayPal checkouts using official  [SDK](https://developer.paypal.com/docs/integration/mobile/mobile-sdk-overview/).
+[NativeScript](https://www.nativescript.org/) module for implementing simple PayPal checkouts using official [SDK](https://developer.paypal.com/docs/integration/mobile/mobile-sdk-overview/).
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=R3YXF4NEV9AAL)
 
@@ -17,7 +17,7 @@
 
 ## Roadmap
 
-* [add support for iOS](https://github.com/mkloubert/nativescript-paypal/issues/1)
+* [add support for iOS](https://github.com/mkloubert/nativescript-paypal/issues/1) (in progress!!!)
 
 ## Installation
 
@@ -94,21 +94,20 @@ Otherwise ...
 
 Include the module in your code-behind:
 
-```javascript
-var PayPal = require("nativescript-paypal");
+```typescript
+import * as PayPal from "nativescript-paypal";
 ```
 
 ### Initialize
 
 Initialize the environment:
 
-```javascript
-function onPageLoaded(args) {
+```typescript
+export function onPageLoaded(args) {
     PayPal.init({
-        clientId: '<YOUR-CLIENT-ID>'
+        clientId: '<YOUR-CLIENT-ID>',
     });
 }
-exports.onPageLoaded = onPageLoaded;
 ```
 
 The (optional) object that is submitted to the `PayPal.init` function has the following structure:
@@ -152,15 +151,16 @@ The `defaults` object has the following structure:
 
 ### Start a payment
 
-```javascript
-function buyProduct(args) {
+```typescript
+export function buyProduct() {
     // configure
-    var payment = PayPal.newPayment()
-        .setDescription('My product')
-        .setAmount(59.79);
+    let payment: PayPal.IPayPalPayment =
+        PayPal.newPayment()
+              .setDescription('My product')
+              .setAmount(59.79);
 
     // start checkout / payment
-    payment.start(function(cbResult) {
+    payment.start((cbResult: PaymentResult) => {
         switch (cbResult.code) {
             case 0:
                 // SUCCESS
@@ -181,7 +181,6 @@ function buyProduct(args) {
         }
     });
 }
-exports.buyProduct = buyProduct;
 ```
 
 The `payment` object that is created by `PayPal.newPayment` function has the following structure.
@@ -190,13 +189,13 @@ The `payment` object that is created by `PayPal.newPayment` function has the fol
 
 | Name  | Description  |
 | ----- | ----------- |
-| getAmount | Gets the price. Example: `var a = payment.getAmount();` |
-| getBnCode | Gets the BN code. Example: `var bc = payment.getBnCode();` |
-| getCurrency | Gets the custom currency to use. Example: `var c = payment.getCurrency();` |
-| getCustom | Gets the custom value for the payment. Example: `var c = payment.getCustom();` |
-| getDescription | Gets the (short) description. Example: `var d = payment.getDescription();` |
-| getDetails | Gets an object with the payment details. Example: `var d = payment.getDetails();` |
-| getInvoiceNumber | Gets the custom invoice number. Example: `var i = payment.getInvoiceNumber();` |
+| getAmount | Gets the price. Example: `let a = payment.getAmount();` |
+| getBnCode | Gets the BN code. Example: `let bc = payment.getBnCode();` |
+| getCurrency | Gets the custom currency to use. Example: `let c = payment.getCurrency();` |
+| getCustom | Gets the custom value for the payment. Example: `let c = payment.getCustom();` |
+| getDescription | Gets the (short) description. Example: `let d = payment.getDescription();` |
+| getDetails | Gets an object with the payment details. Example: `let d = payment.getDetails();` |
+| getInvoiceNumber | Gets the custom invoice number. Example: `let i = payment.getInvoiceNumber();` |
 | setAmount | Sets the price. Example: `payment.setAmount(1.25);` |
 | setBnCode | Sets a BN code. Example: `payment.setBnCode('Your BN Code');` |
 | setCurrency | Sets the custom currency to use. Example: `payment.setCurrency('EUR');` |
@@ -221,8 +220,8 @@ The callback that is submitted to the `payment.start` method receives an object 
 
 If you want to get the logging output of the module, you can use `PayPal.addLogger` function to add a callback that receives a message from the module:
 
-```javascript
-PayPal.addLogger(function(msg) {
+```typescript
+PayPal.addLogger((msg: string) => {
     console.log('[nativescript-paypal]: ' + msg);
 });
 ```

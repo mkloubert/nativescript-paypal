@@ -24,6 +24,24 @@ const Device = require('./Device');
 
 
 /**
+ * A result of a payment.
+ */
+export interface IPaymentResult {
+    /**
+     * The code.
+     */
+    readonly code: number;
+    /**
+     * The key of the payment (if code = 0).
+     */
+    readonly key?: string;
+    /**
+     * The message.
+     */
+    readonly message?: string;
+}
+
+/**
  * Configuration to setup the environment.
  */
 export interface IPayPalConfig {
@@ -227,27 +245,9 @@ export type LoggerCallback = (msg: string) => void;
 /**
  * A callback for a payment.
  * 
- * @param {PaymentResult} result The result (context).
+ * @param {IPaymentResult} result The result (context).
  */
-export type PaymentCallback = (result: PaymentResult) => void;
-
-/**
- * A result of a payment.
- */
-export interface PaymentResult {
-    /**
-     * The code.
-     */
-    readonly code: number;
-    /**
-     * The key of the payment (if code = 0).
-     */
-    readonly key?: string;
-    /**
-     * The message.
-     */
-    readonly message?: string;
-}
+export type PaymentCallback = (result: IPaymentResult) => void;
 
 /**
  * List of environments.
