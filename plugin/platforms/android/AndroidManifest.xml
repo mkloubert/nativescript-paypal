@@ -24,7 +24,6 @@
         <activity android:name="com.paypal.android.sdk.payments.PayPalFuturePaymentActivity" />
         <activity android:name="com.paypal.android.sdk.payments.FuturePaymentConsentActivity" />
         <activity android:name="com.paypal.android.sdk.payments.FuturePaymentInfoActivity" />
-     
         <activity android:name="io.card.payment.DataEntryActivity" />
 		
 	<service android:name="com.paypal.android.sdk.payments.PayPalService"
