@@ -48,10 +48,7 @@ Keep sure to define the following permissions, activities and other data in your
     <action android:name="android.intent.action.MAIN" />
  
     <category android:name="android.intent.category.LAUNCHER" />
-    
-    <service android:name="com.paypal.android.sdk.payments.PayPalService"
-             android:exported="false" />
-             
+
     <uses-feature android:name="android.hardware.camera"
                   android:required="false" />
     <uses-feature android:name="android.hardware.camera.autofocus"
@@ -65,9 +62,12 @@ Keep sure to define the following permissions, activities and other data in your
         <activity android:name="com.paypal.android.sdk.payments.PayPalFuturePaymentActivity" />
         <activity android:name="com.paypal.android.sdk.payments.FuturePaymentConsentActivity" />
         <activity android:name="com.paypal.android.sdk.payments.FuturePaymentInfoActivity" />
- 
         <activity android:name="io.card.payment.DataEntryActivity" />
+		
+	    <service android:name="com.paypal.android.sdk.payments.PayPalService"
+                 android:exported="false" />
     </application>
+    
 </manifest>
 ```
 
